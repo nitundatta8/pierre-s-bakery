@@ -40,7 +40,6 @@ namespace Bakery{
       Console.WriteLine("Hear is the list of Bread.");
       foreach(Bread bread in breadList){
         Console.WriteLine($"{bread.BreadId}.{bread.BreadName}    ${bread.BreadPrice}");
-       
       }
       Console.WriteLine("Would you like to add any items to your cart? [y for yes n for no]");
       string answer = Console.ReadLine();
@@ -101,13 +100,56 @@ namespace Bakery{
        
     }
     //Pastry Area
+    // find pastry
     public static void FindPastry(List<Pastry> pastryList,List<Pastry> pastryCart){
       Console.WriteLine("Hear is the list of Pastry.Choose option:[1-5]");
       foreach(Pastry pastry in pastryList){
         Console.WriteLine($"{pastry.PastryId}. {pastry.PastryName}    ${pastry.PastryPrice}");
-        
+      }
+      Console.WriteLine("Would you like to add any items to your cart? [y for yes n for no]");
+      string answer = Console.ReadLine();
+      answer.ToLower();
+      if(answer == "y"){
+        Console.WriteLine("Choose option:[1-5]");
+        int Option2 = int.Parse(Console.ReadLine());
+        AddPastryToCart(pastryList,Option2,pastryCart);
+      }else{
+        Main();
       }
     }
+    //ADD PASTRY TO THE CART
+
+    public static void AddPastryToCart(List<Pastry> pastryList,List<Pastry> pastryCart,int option){
+      foreach(Pastry pastry in pastryList){
+        if(pastry.PastryId == option){
+          Console.WriteLine($"How many {pastry.PastryName} do you want?");
+          int Quantity = int.Parse(Console.ReadLine());
+          for(int i=0;i< Quantity;i++){
+            pastryCart.Add(prastry);
+          }
+          Console.WriteLine($"{pastryCart.Count} {pastry.PastryName} added to your cart.");
+        }
+      }
+
+      Console.WriteLine("Would you like to add more Pastry items to your cart? [y for yes n for no]");
+      string answer = Console.ReadLine();
+      answer.ToLower();
+      if(answer == "y"){
+        FindPastry(pastryList,pastryCart); 
+      }else{
+        Console.WriteLine("Would you like to add any Pastry items to your cart? [y for yes n for no]");
+        string answer1 = Console.ReadLine();
+        answer1.ToLower(); 
+        if(answer1 == "y"){
+          Main();
+        }else{
+           PrintPastryItem(breadList,breadCart);
+
+        } 
+      }
+    }
+    //END PASTRY CART
+    //print pastry items
   }
 }
 
