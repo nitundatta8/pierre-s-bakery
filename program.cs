@@ -23,6 +23,9 @@ namespace Bakery{
     }
     public static void StartShopping(List<Bread> breadList,List<Bread> breadCart,List<Pastry> pastryList,List<Pastry> pastryCart){
       Console.WriteLine("Welcome to Pierre's Bakery");
+      Console.WriteLine("------------------------------------------------");
+      Console.WriteLine("Pierre offers the following deals: \nBread: Buy 2, get 1 free. A single loaf costs $3 \nPastry: Buy 1 for $2 or 3 for $5.");
+      Console.WriteLine("-------------------------------------------------------");
       Console.WriteLine($"Make a selection to browes! \nOption 1 [For Bread]/ 2 [For Pastry]");
       string userInput = Console.ReadLine();
       if(userInput == "1"){
@@ -90,7 +93,12 @@ namespace Bakery{
       foreach(Bread bread in breadCart){
         name = bread.BreadName;
       }
-      Console.WriteLine($"{name} {breadCart.Count} -- Total Price: {Total} \nGood Bye"); 
+      if(breadCart.Count <= 2){
+        Console.WriteLine($"{breadCart.Count + 1} Breads (Today's Offer!!) -- Total Price: {Total} \nGood Bye");
+      }else{
+        Console.WriteLine($"{name} {breadCart.Count} -- Total Price: {Total} \nGood Bye");
+      }
+       
     }
     //Pastry Area
     public static void FindPastry(List<Pastry> pastryList,List<Pastry> pastryCart){
