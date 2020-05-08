@@ -8,7 +8,12 @@ namespace Bakery.Models{
       BreadName = name;
       BreadPrice = price;
     }
-
+    
+    public int TotalBreadPrice(int Item){
+      int Breadprice = 3;
+      int Total =  Item *  Breadprice;
+      return Total;
+    }
   }
 
   public class Pastry{
@@ -18,6 +23,12 @@ namespace Bakery.Models{
     public Pastry(string name , int price){
       PastryName = name;
       PastryPrice = price;
+    }
+
+    public int TotalPastryPrice(int Item){
+      int Pastryprice = 2;
+      int Total =  Item *  Pastryprice;
+      return Total;
     }
 
   }
