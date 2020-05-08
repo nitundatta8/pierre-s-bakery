@@ -26,12 +26,14 @@ namespace Bakery{
       Console.WriteLine("------------------------------------------------");
       Console.WriteLine("Pierre offers the following deals: \nBread: Buy 2, get 1 free. A single loaf costs $3 \nPastry: Buy 1 for $2 or 3 for $5.");
       Console.WriteLine("-------------------------------------------------------");
-      Console.WriteLine($"Make a selection to browes! \nOption 1 [For Bread]/ 2 [For Pastry]");
+      Console.WriteLine($"Make a selection to browes! \nOption 1 [For Bread] / 2 [For Pastry] / 3 [back]");
       string userInput = Console.ReadLine();
       if(userInput == "1"){
         FindBread(breadList,breadCart);
-      }else{
+      }else if(userInput == "2"){
         FindPastry(pastryList,pastryCart);
+      }else{
+        Console.WriteLine("Good Bye"); 
       }
     }
 
