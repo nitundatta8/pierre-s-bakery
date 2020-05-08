@@ -1,18 +1,17 @@
 
 namespace Bakery.Models{
   public class Bread{
-   // public int BreadId{get;set;}
+    public int BreadId{get;set;}
     public string BreadName{get;set;}
     public int BreadPrice{get;set;}
     
-    public Bread(string name , int price){
+    public Bread(int id,string name , int price){
+      BreadId = id;
       BreadName = name;
       BreadPrice = price;
-     // BreadId = IdIncrement();
+     
     }
-    // private int IdIncrement(){
-    //   BreadId++;
-    // }
+    
     public int TotalBreadPrice(int Item){
       int Breadprice = 3;
       int Total =  Item *  Breadprice;
@@ -21,11 +20,12 @@ namespace Bakery.Models{
   }
 
   public class Pastry{
-   // public int PastryId{get;set;}
+    public int PastryId{get;set;}
     public string PastryName{get;set;}
     public int PastryPrice{get;set;}
     
-    public Pastry(string name , int price){
+    public Pastry(int id,string name , int price){
+      PastryId = id;
       PastryName = name;
       PastryPrice = price;
     }
