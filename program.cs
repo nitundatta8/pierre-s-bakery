@@ -50,8 +50,8 @@ namespace Bakery{
         Main();
       }
     }
-    public static int AddCart(List<Bread> breadList,int option,List<Bread> breadCart){
-      
+    // ADD BREAD TO BREAD CART LIST
+    public static void AddCart(List<Bread> breadList,int option,List<Bread> breadCart){
       foreach(Bread bread in breadList){
         if(bread.BreadId == option){
           Console.WriteLine($"How many {bread.BreadName} breads do you want?");
@@ -60,10 +60,37 @@ namespace Bakery{
             breadCart.Add(bread);
           }
           Console.WriteLine($"{breadCart.Count} {bread.BreadName} bread is added to your cart.");
-          FindBread(breadList,breadCart);
         }
       }
-      return 0;
+
+      Console.WriteLine("Would you like to add more bread items to your cart? [y for yes n for no]");
+      string answer = Console.ReadLine();
+      answer.ToLower();
+      if(answer == "y"){
+        FindBread(breadList,breadCart);  
+      }else{
+        Console.WriteLine("Would you like to add any Pastry items to your cart? [y for yes n for no]");
+        string answer1 = Console.ReadLine();
+        answer1.ToLower(); 
+        if(answer1 == "y"){
+          Main();
+        }else{
+           PrintItem(breadList,breadCart);
+
+        } 
+      }
+    }
+    // PRINT BREAD ITEMS
+    public static void PrintItem(List<Bread> breadList,List<Bread> breadCart){
+      int Total =0;
+      string name = "";
+      foreach(Bread bread in breadList){
+        Total = bread.TotalBreadPrice(breadCart.Count);
+      }
+      foreach(Bread bread in breadCart){
+        name = bread.BreadName;
+      }
+      Console.WriteLine($"{name} {breadCart.Count} -- Total Price: {Total} \nGood Bye"); 
     }
     //Pastry Area
     public static void FindPastry(List<Pastry> pastryList,List<Pastry> pastryCart){
