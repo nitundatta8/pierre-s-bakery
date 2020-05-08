@@ -112,7 +112,7 @@ namespace Bakery{
       if(answer == "y"){
         Console.WriteLine("Choose option:[1-5]");
         int Option2 = int.Parse(Console.ReadLine());
-        AddPastryToCart(pastryList,Option2,pastryCart);
+        AddPastryToCart(pastryList,pastryCart,Option2);
       }else{
         Main();
       }
@@ -125,7 +125,7 @@ namespace Bakery{
           Console.WriteLine($"How many {pastry.PastryName} do you want?");
           int Quantity = int.Parse(Console.ReadLine());
           for(int i=0;i< Quantity;i++){
-            pastryCart.Add(prastry);
+            pastryCart.Add(pastry);
           }
           Console.WriteLine($"{pastryCart.Count} {pastry.PastryName} added to your cart.");
         }
@@ -143,13 +143,29 @@ namespace Bakery{
         if(answer1 == "y"){
           Main();
         }else{
-           PrintPastryItem(breadList,breadCart);
+           PrintPastryItem(pastryList,pastryCart);
 
         } 
       }
     }
     //END PASTRY CART
-    //print pastry items
+    //PRINT PASTRY ITEM 
+    public static void PrintPastryItem(List<Pastry> pastryList,List<Pastry> pastryCart){
+      int Total =0;
+      string name = "";
+      foreach(Pastry pastry in pastryList){
+        Total = pastry.TotalPastryPrice(pastryCart.Count);
+      }
+      foreach(Pastry pastry in pastryCart){
+        name = pastry.PastryName;
+      }
+      if(pastryCart.Count >=3){
+        Console.WriteLine($"{pastryCart.Count} Pastry -- Total Price(Today's Offer!!): {Total -1} \nGood Bye");
+      }else{
+        Console.WriteLine($"{name} {pastryCart.Count} -- Total Price: {Total} \nGood Bye");
+      }
+       
+    }
   }
 }
 
