@@ -115,9 +115,9 @@ namespace Bakery{
         $"\n ----------------- Balance: ${balance} ");
       }else if(pastryCart.Count > 0){
          Console.WriteLine($"Total Pastry:{pastryCart.Count}  ${totalPasPrice} (Deals:${priceOfPastry} Off!!)"+
-         $" \n ---------- Balance:${balance}");
+         $" \n ---------- Balance: ${balance}");
       }else{
-        Console.WriteLine("Hi");
+        Console.WriteLine("Good Bye");
       }
       
       
