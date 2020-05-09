@@ -4,6 +4,7 @@ using Bakery.Models;
 
 namespace Bakery{
   public class Program{
+    
     public static void Main(){
       //CONSTRUCTORS FOR BAKERY ITEMS
       Bread wholeGrain = new Bread(1,"WholeGrain",3);
@@ -51,7 +52,7 @@ namespace Bakery{
         int Option = int.Parse(Console.ReadLine());
         AddCart(breadList,breadCart,pastryList,pastryCart,Option);
       }else{
-        Main();
+        StartShopping(breadList,breadCart,pastryList,pastryCart);
       }
     }
     // ADD BREAD TO BREAD CART LIST
@@ -60,8 +61,10 @@ namespace Bakery{
         if(bread.BreadId == option){
           Console.WriteLine($"How many {bread.BreadName} breads do you want?");
           int Quantity = int.Parse(Console.ReadLine());
+          Console.WriteLine("va1 " + Quantity);
           for(int i=0;i< Quantity;i++){
             breadCart.Add(bread);
+            Console.WriteLine("Bread");
           }
           Console.WriteLine($"{breadCart.Count} {bread.BreadName} bread is added to your cart.");
         }
@@ -77,7 +80,7 @@ namespace Bakery{
         string answer1 = Console.ReadLine();
         answer1.ToLower(); 
         if(answer1 == "y"){
-          Main();
+          StartShopping(breadList,breadCart,pastryList,pastryCart);
         }else{
            PrintItem(breadList,breadCart,pastryList,pastryCart);
         } 
@@ -92,35 +95,32 @@ namespace Bakery{
       int numOfBread = 0;
       int priceOfPastry = 0;
       
-      foreach(Bread bread in breadList){
-        numOfBread = (breadList.Count)/2;
-        totalBPrice = bread.TotalBreadPrice(breadList.Count);
+      
+      foreach(Bread bread in breadCart){
+        numOfBread = (breadCart.Count)/2;
+        totalBPrice = bread.TotalBreadPrice(breadCart.Count);
       }
 
-      
-      foreach(Pastry pastry in pastryList){
-        priceOfPastry = (pastryList.Count)/3;
+      foreach(Pastry pastry in pastryCart){
+        priceOfPastry = (pastryCart.Count)/3;
         totalPasPrice = pastry.TotalPastryPrice(pastryCart.Count);
       }
+      int balance = totalBPrice + (totalPasPrice - priceOfPastry);
+      if(breadCart.Count > 0 && pastryCart.Count > 0){
+        Console.WriteLine($"Total Bread:{breadCart.Count + numOfBread} (Deals:{numOfBread} bread free!!)  ${totalBPrice}"+
+        $"\nTotal Pastry:{pastryCart.Count} (Deals: ${priceOfPastry} Off!!)      ${totalPasPrice - priceOfPastry} "+
+        $"\n ----------------------------- Balance: ${balance}");
+      }else if(breadCart.Count > 0){
+        Console.WriteLine($"Total Bread:{breadCart.Count + numOfBread} (Deals:{numOfBread} bread free!!)  ${totalBPrice} "+
+        $"\n ----------------- Balance: ${balance} ");
+      }else if(pastryCart.Count > 0){
+         Console.WriteLine($"Total Pastry:{pastryCart.Count}  ${totalPasPrice} (Deals:${priceOfPastry} Off!!)"+
+         $" \n ---------- Balance:${balance}");
+      }else{
+        Console.WriteLine("Hi");
+      }
       
-      // if(breadCart.Count <= 2 && pastryCart.Count >=3){
-      //   int Balance = TotalBPrice + (TotalPasPrice -1);
-      //   Console.WriteLine($"{breadCart.Count + 1} Breads (Today's Offer!!) -- Total Price: {TotalBPrice}"+
-      //   $"\n{pastryCart.Count} Pastry -- Total Price(Today's Offer!!): {TotalPasPrice -1}"+
-      //   $"\nBalance: {Balance} \nGood Bye");
-      // }else if(breadCart.Count <= 2){
-      //   Console.WriteLine($"{breadCart.Count +1}(Today's Offer!!) -- Total Price: {TotalBPrice} \nGood Bye");
-      // }else if(pastryCart.Count >=3){
-      //   Console.WriteLine($"{pastryCart.Count} Pastry -- Total Price(Today's Offer!!): {TotalPasPrice -1} \nGood Bye");
-      // }
-
       
-      // if(pastryCart.Count >=3){
-      //   Console.WriteLine($"{pastryCart.Count} Pastry -- Total Price(Today's Offer!!): {TotalPasPrice -1} \nGood Bye");
-      // }else{
-      //   Console.WriteLine($"{name} {pastryCart.Count} -- Total Price: {TotalPasPrice} \nGood Bye");
-      // }
-       
     }
     //Pastry Area
     // find pastry
@@ -129,7 +129,7 @@ namespace Bakery{
       foreach(Pastry pastry in pastryList){
         Console.WriteLine($"{pastry.PastryId}. {pastry.PastryName}    ${pastry.PastryPrice}");
       }
-      Console.WriteLine("Would you like to add any items to your cart? [y for yes n for no]");
+      Console.WriteLine("Would you like to add any items to your cart? [y for yes / n for no]");
       string answer = Console.ReadLine();
       answer.ToLower();
       if(answer == "y"){
@@ -137,7 +137,7 @@ namespace Bakery{
         int Option2 = int.Parse(Console.ReadLine());
         AddPastryToCart(breadList,breadCart,pastryList,pastryCart,Option2);
       }else{
-        Main();
+        StartShopping(breadList,breadCart,pastryList,pastryCart);
       }
     }
     //ADD PASTRY TO THE CART
@@ -147,6 +147,7 @@ namespace Bakery{
         if(pastry.PastryId == option){
           Console.WriteLine($"How many {pastry.PastryName} do you want?");
           int Quantity = int.Parse(Console.ReadLine());
+          Console.WriteLine("valP " + Quantity);
           for(int i=0;i< Quantity;i++){
             pastryCart.Add(pastry);
           }
@@ -154,17 +155,17 @@ namespace Bakery{
         }
       }
 
-      Console.WriteLine("Would you like to add more Pastry items to your cart? [y for yes n for no]");
+      Console.WriteLine("Would you like to add more Pastry items to your cart? [y for yes / n for no]");
       string answer = Console.ReadLine();
       answer.ToLower();
       if(answer == "y"){
         FindPastry( breadList,breadCart,pastryList,pastryCart); 
       }else{
-        Console.WriteLine("Would you like to add any Pastry items to your cart? [y for yes n for no]");
+        Console.WriteLine("Would you like to add any Bread items to your cart? [y for yes n for no]");
         string answer1 = Console.ReadLine();
         answer1.ToLower(); 
         if(answer1 == "y"){
-          Main();
+          StartShopping(breadList,breadCart,pastryList,pastryCart);
         }else{
           PrintItem(breadList,breadCart,pastryList,pastryCart);
 
